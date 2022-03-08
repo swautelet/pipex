@@ -6,13 +6,11 @@
 /*   By: swautele <swautele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 18:50:45 by swautele          #+#    #+#             */
-/*   Updated: 2022/03/08 21:11:43 by swautele         ###   ########.fr       */
+/*   Updated: 2022/03/08 21:14:11 by swautele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"pipex.h"
-
-
 
 static void	ft_free(char **r, int l)
 {

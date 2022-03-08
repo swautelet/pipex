@@ -5,7 +5,7 @@ CC = gcc
 CFLAGS = -Werror -Wall -Wextra
 HEADER = pipex.h
 NAME = pipex
-OBJET = $(SRC:.c = .o)
+OBJET = $(SRC:.c=.o)
 
 all : $(NAME)
 
