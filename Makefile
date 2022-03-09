@@ -21,7 +21,7 @@ clean :
 fclean : clean
 	rm -f $(NAME)
 
-save : fclean
+save :
 	git commit -am autosave
 	git push https://github.com/swautelet/pipex.git
 

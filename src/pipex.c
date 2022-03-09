@@ -6,7 +6,7 @@
 /*   By: swautele <swautele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 21:17:12 by swautele          #+#    #+#             */
-/*   Updated: 2022/03/09 12:38:22 by swautele         ###   ########.fr       */
+/*   Updated: 2022/03/09 12:50:46 by swautele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,18 +72,40 @@ char	*find_path(char *str, char *name)
 	return (NULL);
 }
 
+int	command(char *path, char **arg, char **env, int pip[2])
+{
+	(void) pip;
+	close(pip[0]);
+	dup2(pip[1], 1);
+	return (execve(path, arg, env));
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	int		pl;
 	char	*path;
 	char	**arg;
+	int		pip[2];
+	int		id;
+	int		w;
+	int		end;
+	char	buffer[1000];
 
 	if (argc < 2)
 		return (0);
 	arg = ft_split(argv[1], ' ');
 	pl = find_path_line(envp);
 	path = find_path(&envp[pl][5], arg[0]);
-	printf("est renvoye = %s", path);
+	pipe(pip);
+	id = fork();
+	if (id == 0)
+		command(path, arg, envp, pip);
+	else
+		wait(&w);
+	close(pip[1]);
+	end = read(pip[0], buffer, 999);
+	buffer[end] = '\0';
+	printf("%s", buffer);
 	free(path);
 	free_table(arg);
 }
