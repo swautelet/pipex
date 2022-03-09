@@ -22,8 +22,7 @@ fclean : clean
 	rm -f $(NAME)
 
 save : fclean
-	git add *
-	git commit -m autosave
+	git commit -am autosave
 	git push https://github.com/swautelet/pipex.git
 
 .phony : all $(NAME) clean fclean
