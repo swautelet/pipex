@@ -6,7 +6,7 @@
 /*   By: swautele <swautele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 21:17:12 by swautele          #+#    #+#             */
-/*   Updated: 2022/03/08 21:39:46 by swautele         ###   ########.fr       */
+/*   Updated: 2022/03/09 12:38:22 by swautele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,15 @@ char	*find_path(char *str, char *name)
 	int		k;
 
 	possible = ft_split(str, ':');
-	i = 0;
-	while (possible[i])
+	i = -1;
+	while (possible[++i])
 	{
-		temp = malloc(ft_strlen(str) + ft_strlen(name) + 2);
+		temp = ft_calloc(ft_strlen(possible[i]) + ft_strlen(name) + 2, 1);
 		j = -1;
 		while (possible[i][++j])
 			temp[j] = possible[i][j];
-		j++;
 		temp[j] = '/';
+		j++;
 		k = -1;
 		while (name[++k])
 			temp[j + k] = name[k];
@@ -67,8 +67,8 @@ char	*find_path(char *str, char *name)
 		}
 		else
 			free (temp);
-		i++;
 	}
+	free_table(possible);
 	return (NULL);
 }
 
@@ -82,8 +82,8 @@ int	main(int argc, char **argv, char **envp)
 		return (0);
 	arg = ft_split(argv[1], ' ');
 	pl = find_path_line(envp);
-	path = find_path(envp[pl], arg[0]);
-	printf("%s", path);
+	path = find_path(&envp[pl][5], arg[0]);
+	printf("est renvoye = %s", path);
 	free(path);
 	free_table(arg);
 }
