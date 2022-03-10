@@ -2,7 +2,7 @@ SRC = src/pipex.c \
 	src/ft_split.c \
 	src/calloc.c
 CC = gcc
-CFLAGS = -Werror -Wall -Wextra -fsanitize=address
+CFLAGS = -Werror -Wall -Wextra
 HEADER = pipex.h
 NAME = pipex
 OBJET = $(SRC:.c=.o)

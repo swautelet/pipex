@@ -6,7 +6,7 @@
 /*   By: swautele <swautele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 21:17:12 by swautele          #+#    #+#             */
-/*   Updated: 2022/03/10 17:41:21 by swautele         ###   ########.fr       */
+/*   Updated: 2022/03/10 19:38:42 by swautele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	prep_command(char *argv, char **envp)
 //	int		end;
 //	char	buffer[1000];
 
-	arg = ft_split(argv[1], ' ');
+	arg = ft_split(argv, ' ');
 	pl = find_path_line(envp);
 	path = find_path(&envp[pl][5], arg[0]);
 	pipe(pip);
@@ -112,6 +112,38 @@ int	prep_command(char *argv, char **envp)
 
 int	main(int argc, char **argv, char **envp)
 {
-	if (argc < 2)
+	int	i;
+	int	get[FOPEN_MAX];
+	char	buffer[1000];
+	int	out;
+	int	len;
+	
+	if (argc < 4)
 		return (0);
+	i = 1;
+	get[i] = open(argv[i], O_RDONLY);
+	while (++i < argc - 2)
+	{
+		dup2(get[i - 1], 0);
+		get[i] = prep_command(argv[i], envp);
+	}
+	out = open("outfile", O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
+	// close(out);
+	// out = open("outfile", O_WRONLY);
+	// printf("%d\n", out);
+	len = read(get[i], buffer, 999);
+	while(len)
+	{
+		write(out, buffer, len);
+		len = read(get[i], buffer, 999);
+	}
+	write(out, buffer, 1);
+	close(out);
+	// read(get2, buffer, 999);
+	// printf("%s", buffer);
+	while(i >= 1)
+	{
+		close(get[i]);
+		i--;
+	}
 }
