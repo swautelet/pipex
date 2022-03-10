@@ -6,7 +6,7 @@
 /*   By: swautele <swautele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 21:17:12 by swautele          #+#    #+#             */
-/*   Updated: 2022/03/09 12:50:46 by swautele         ###   ########.fr       */
+/*   Updated: 2022/03/10 17:41:21 by swautele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	command(char *path, char **arg, char **env, int pip[2])
 	return (execve(path, arg, env));
 }
 
-int	main(int argc, char **argv, char **envp)
+int	prep_command(char *argv, char **envp)
 {
 	int		pl;
 	char	*path;
@@ -88,11 +88,9 @@ int	main(int argc, char **argv, char **envp)
 	int		pip[2];
 	int		id;
 	int		w;
-	int		end;
-	char	buffer[1000];
+//	int		end;
+//	char	buffer[1000];
 
-	if (argc < 2)
-		return (0);
 	arg = ft_split(argv[1], ' ');
 	pl = find_path_line(envp);
 	path = find_path(&envp[pl][5], arg[0]);
@@ -103,9 +101,17 @@ int	main(int argc, char **argv, char **envp)
 	else
 		wait(&w);
 	close(pip[1]);
-	end = read(pip[0], buffer, 999);
-	buffer[end] = '\0';
-	printf("%s", buffer);
+//	end = read(pip[0], buffer, 999);
+//	buffer[end] = '\0';
+//	close(pip[0]);
+//	printf("%s", buffer);
 	free(path);
 	free_table(arg);
+	return (pip[0]);
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	if (argc < 2)
+		return (0);
 }
