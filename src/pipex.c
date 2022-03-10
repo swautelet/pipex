@@ -6,7 +6,7 @@
 /*   By: swautele <swautele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 21:17:12 by swautele          #+#    #+#             */
-/*   Updated: 2022/03/10 20:05:42 by swautele         ###   ########.fr       */
+/*   Updated: 2022/03/10 20:54:47 by swautele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,10 +124,10 @@ int	main(int argc, char **argv, char **envp)
 	get[i] = open(argv[i], O_RDONLY);
 	while (i < argc - 2)
 	{
-		// printf("get[i] = %d\n", get[i]);
 		dup2(get[i - 1], 0);
 		i++;
 		get[i] = prep_command(argv[i], envp);
+		// printf("get[i] = %d\n", get[i]);
 	}
 	out = open("outfile", O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
 	// close(out);
