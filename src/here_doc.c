@@ -1,35 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swautele <swautele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/08 21:17:12 by swautele          #+#    #+#             */
-/*   Updated: 2022/03/11 18:20:53 by swautele         ###   ########.fr       */
+/*   Created: 2022/03/11 18:12:31 by swautele          #+#    #+#             */
+/*   Updated: 2022/03/11 18:21:24 by swautele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"pipex.h"
 
-int	ft_strlen(char *str)
+int	strcmp(char *str1, char *str2)
 {
-	int	i;
-
-	i = 0;
-	if (str == NULL)
-		return (-1);
-	while (str[i])
-		i++;
-	return (i);
+	if (str1 == NULL && str2 == NULL)
+		return (0);
+	if (str1 == NULL || str2 == NULL)
+		return (-1000);
+	while(*str1 == *str2)
+	{
+		str1++;
+		str2++;
+	}
+	return ((unsigned char)*str1 - (unsigned char )*str2);
 }
 
-int	main(int argc, char **argv, char **envp)
-{
+void	ft_here_doc(int argc, char **argv, char **envp)
+[
 	t_read	r;
 
-	if (strcmp(argv[1], "here_doc") == 0)
-		ft_here_doc(argc, argv, envp);
 	if (argc < 4)
 		return (0);
 	r.i = 1;
@@ -55,4 +55,4 @@ int	main(int argc, char **argv, char **envp)
 		close (r.fd[r.i]);
 		r.i--;
 	}
-}
+]

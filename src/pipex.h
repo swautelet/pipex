@@ -6,7 +6,7 @@
 /*   By: swautele <swautele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 19:19:49 by swautele          #+#    #+#             */
-/*   Updated: 2022/03/11 15:19:43 by swautele         ###   ########.fr       */
+/*   Updated: 2022/03/11 18:19:01 by swautele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <stdlib.h>
+# include <sys/wait.h>
 
 typedef struct s_path{
 	int		pl;
@@ -43,6 +44,10 @@ typedef struct s_fuck{
 	int		j;
 	int		k;
 }	t_explore;
+typedef struct s_exit{
+	int	fd;
+	int	excod;
+}	t_exit;
 
 char	**ft_split(char const *str, char c);
 int		find_path_line(char **envp);
@@ -52,5 +57,7 @@ int		ft_strlen(char *str);
 void	free_table(char **str);
 char	*find_path(char *str, char *name);
 int		prep_command(char *argv, char **envp);
+int		strcmp(char *str1, char *str2);
+void	ft_here_doc(int argc, char **argv, char **envp);
 
 #endif
