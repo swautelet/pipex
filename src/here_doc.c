@@ -6,7 +6,7 @@
 /*   By: swautele <swautele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:12:31 by swautele          #+#    #+#             */
-/*   Updated: 2022/03/11 19:11:04 by swautele         ###   ########.fr       */
+/*   Updated: 2022/03/11 19:27:31 by swautele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,22 @@ int	f_strcmp(char *str1, char *str2)
 	return ((unsigned char)*str1 - (unsigned char )*str2);
 }
 
+void	wr_heredoc(int fd, char *end)
+{
+	char buffer[1000];
+	int	len;
+
+	len = read (0, buffer, 999);
+	buffer[len] = '\0';
+	write (fd, buffer, ft_strlen(buffer));
+	while (f_strcmp(buffer, end) != 0)
+	{
+		len = read(0, buffer, 10);
+		buffer[len] = '\0';
+		write (fd, buffer, ft_strlen(buffer));
+	}
+}
+
 void	ft_here_doc(int argc, char **argv, char **envp)
 [
 	t_read	r;
@@ -34,7 +50,8 @@ void	ft_here_doc(int argc, char **argv, char **envp)
 		return (0);
 	r.i = 2;
 	// modifier l entree pour prendre here_doc 
-	r.fd[r.i] = open(argv[r.i], O_RDONLY);
+	r.fd[r.i] = open(argv[r.i], O_TMPFILE | O_RDWR);
+	wr_heredoc(r.fd[r.i], argv[r.i]);
 	r.out = open(argv[argc - 1], O_CREAT | O_WRONLY | O_APPEND, 00644);
 	if (r.fd[r.i] == -1 || r.out == -1)
 		return (-1);
