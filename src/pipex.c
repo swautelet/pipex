@@ -6,7 +6,7 @@
 /*   By: swautele <swautele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 21:17:12 by swautele          #+#    #+#             */
-/*   Updated: 2022/03/11 15:08:39 by swautele         ###   ########.fr       */
+/*   Updated: 2022/03/11 15:16:38 by swautele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,37 +24,31 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
-
-
 int	main(int argc, char **argv, char **envp)
 {
-	int		i;
-	int		fd[FOPEN_MAX];
-	char	buffer[1000];
-	int		out;
-	int		len;
+	t_read	r;
 
 	if (argc < 4)
 		return (0);
-	i = 1;
-	fd[i] = open(argv[i], O_RDONLY);
-	out = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 00644);
-	while (i < argc - 2)
+	r.i = 1;
+	r.fd[r.i] = open(argv[r.i], O_RDONLY);
+	r.out = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 00644);
+	while (r.i < argc - 2)
 	{
-		i++;
-		dup2(fd[i - 1], 0);
-		fd[i] = prep_command(argv[i], envp);
+		r.i++;
+		dup2(r.fd[r.i - 1], 0);
+		r.fd[r.i] = prep_command(argv[r.i], envp);
 	}
-	len = read(fd[i], buffer, 999);
-	while (len > 0)
+	r.len = read(r.fd[r.i], r.buffer, 999);
+	while (r.len > 0)
 	{
-		write(out, buffer, len);
-		len = read(fd[i], buffer, 999);
+		write(r.out, r.buffer, r.len);
+		r.len = read(r.fd[r.i], r.buffer, 999);
 	}
-	close(out);
-	while (i >= 1)
+	close(r.out);
+	while (r.i >= 1)
 	{
-		close (fd[i]);
-		i--;
+		close (r.fd[r.i]);
+		r.i--;
 	}
 }
