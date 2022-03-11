@@ -1,6 +1,7 @@
 SRC = src/pipex.c \
 	src/ft_split.c \
-	src/calloc.c
+	src/calloc.c \
+	src/command.c
 CC = gcc
 CFLAGS = -Werror -Wall -Wextra
 HEADER = pipex.h
