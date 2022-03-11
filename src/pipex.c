@@ -6,7 +6,7 @@
 /*   By: swautele <swautele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 21:17:12 by swautele          #+#    #+#             */
-/*   Updated: 2022/03/10 20:54:47 by swautele         ###   ########.fr       */
+/*   Updated: 2022/03/11 13:27:10 by swautele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,41 +113,42 @@ int	prep_command(char *argv, char **envp)
 int	main(int argc, char **argv, char **envp)
 {
 	int	i;
-	int	get[FOPEN_MAX];
+	int	fd[FOPEN_MAX];
 	char	buffer[1000];
-	int	out;
+	 int	out;
 	int	len;
 	
 	if (argc < 4)
 		return (0);
 	i = 1;
-	get[i] = open(argv[i], O_RDONLY);
+	fd[i] = open(argv[i], O_RDONLY);
+	// printf("%s", argv[argc - 1]);
+	out = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
 	while (i < argc - 2)
 	{
-		dup2(get[i - 1], 0);
 		i++;
-		get[i] = prep_command(argv[i], envp);
-		// printf("get[i] = %d\n", get[i]);
+		// printf("i = %d\n", i);
+		dup2(fd[i - 1], 0);
+		fd[i] = prep_command(argv[i], envp);
+		
 	}
-	out = open("outfile", O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
-	// close(out);
 	// out = open("outfile", O_WRONLY);
 	// printf("%d\n", out);
-	len = read(get[i], buffer, 999);
-	// printf("len = %d get[i] = %d i = %d\n", len, get[i], i);
+	len = read(fd[i], buffer, 999);
+	// printf("len = %d fd[i] = %d i = %d\n", len, fd[i], i);
 	// printf("%s", buffer);
 	while(len > 0)
 	{
 		write(out, buffer, len);
-		len = read(get[i], buffer, 999);
-		// printf("len = %d get[i] = %d\n", len, get[i]);
+		len = read(fd[i], buffer, 999);
+		// printf("len = %d fd[i] = %d\n", len, fd[i]);
 	}
 	close(out);
-	// read(get2, buffer, 999);
+	// read(fd2, buffer, 999);
 	// printf("%s", buffer);
 	while(i >= 1)
 	{
-		close(get[i]);
+		close(fd[i]);
 		i--;
 	}
 }
