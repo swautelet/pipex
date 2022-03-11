@@ -6,7 +6,7 @@
 /*   By: swautele <swautele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 19:19:49 by swautele          #+#    #+#             */
-/*   Updated: 2022/03/11 19:10:55 by swautele         ###   ########.fr       */
+/*   Updated: 2022/03/11 19:36:05 by swautele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <sys/stat.h>
 # include <stdlib.h>
 # include <sys/wait.h>
+# include <limits.h>
 
 typedef struct s_path{
 	int		pl;

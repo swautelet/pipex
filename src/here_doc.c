@@ -6,7 +6,7 @@
 /*   By: swautele <swautele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:12:31 by swautele          #+#    #+#             */
-/*   Updated: 2022/03/11 19:27:31 by swautele         ###   ########.fr       */
+/*   Updated: 2022/03/11 19:35:51 by swautele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ int	f_strcmp(char *str1, char *str2)
 
 void	wr_heredoc(int fd, char *end)
 {
-	char buffer[1000];
+	char buffer[INT_MAX];
 	int	len;
 
-	len = read (0, buffer, 999);
+	len = read (0, buffer, INT_MAX - 1);
 	buffer[len] = '\0';
 	write (fd, buffer, ft_strlen(buffer));
 	while (f_strcmp(buffer, end) != 0)
