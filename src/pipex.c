@@ -6,7 +6,7 @@
 /*   By: swautele <swautele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 21:17:12 by swautele          #+#    #+#             */
-/*   Updated: 2022/03/11 18:20:53 by swautele         ###   ########.fr       */
+/*   Updated: 2022/03/11 18:32:05 by swautele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int argc, char **argv, char **envp)
 	r.fd[r.i] = open(argv[r.i], O_RDONLY);
 	r.out = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 00644);
 	if (r.fd[r.i] == -1 || r.out == -1)
-		
+		return (-1);
 	while (r.i < argc - 2)
 	{
 		r.i++;

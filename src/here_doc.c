@@ -6,13 +6,13 @@
 /*   By: swautele <swautele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:12:31 by swautele          #+#    #+#             */
-/*   Updated: 2022/03/11 18:21:24 by swautele         ###   ########.fr       */
+/*   Updated: 2022/03/11 19:11:04 by swautele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"pipex.h"
 
-int	strcmp(char *str1, char *str2)
+int	f_strcmp(char *str1, char *str2)
 {
 	if (str1 == NULL && str2 == NULL)
 		return (0);
@@ -30,13 +30,14 @@ void	ft_here_doc(int argc, char **argv, char **envp)
 [
 	t_read	r;
 
-	if (argc < 4)
+	if (argc < 5)
 		return (0);
-	r.i = 1;
+	r.i = 2;
+	// modifier l entree pour prendre here_doc 
 	r.fd[r.i] = open(argv[r.i], O_RDONLY);
-	r.out = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 00644);
+	r.out = open(argv[argc - 1], O_CREAT | O_WRONLY | O_APPEND, 00644);
 	if (r.fd[r.i] == -1 || r.out == -1)
-		
+		return (-1);
 	while (r.i < argc - 2)
 	{
 		r.i++;
@@ -50,7 +51,7 @@ void	ft_here_doc(int argc, char **argv, char **envp)
 		r.len = read(r.fd[r.i], r.buffer, 999);
 	}
 	close(r.out);
-	while (r.i >= 1)
+	while (r.i >= 2)
 	{
 		close (r.fd[r.i]);
 		r.i--;
