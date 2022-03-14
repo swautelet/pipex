@@ -6,7 +6,7 @@
 /*   By: swautele <swautele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 21:17:12 by swautele          #+#    #+#             */
-/*   Updated: 2022/03/14 19:19:07 by swautele         ###   ########.fr       */
+/*   Updated: 2022/03/14 20:30:03 by swautele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,25 @@ int	main(int argc, char **argv, char **envp)
 	r.fd[r.i] = open(argv[r.i], O_RDONLY);
 	r.out = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 00644);
 	if (r.fd[r.i] == -1 || r.out == -1)
-		return (-1);
+	{
+		perror("failed to open");
+		return (errno);
+	}
 	while (r.i < argc - 2)
 	{
 		r.i++;
-		dup2(r.fd[r.i - 1], 0);
+		if (dup2(r.fd[r.i - 1], 0) == -1)
+			exit_error("dup2 failed");
 		r.fd[r.i] = prep_command(argv[r.i], envp);
 	}
 	write_and_exit (r, 1);
 }
 
-int	write_and_exit (t_read r, int first)
+int	write_and_exit(t_read r, int first)
 {
 	r.len = read(r.fd[r.i], r.buffer, 999);
+	if (r.len == -1)
+		perror("failed to read");
 	while (r.len > 0)
 	{
 		write(r.out, r.buffer, r.len);
@@ -61,4 +67,10 @@ int	write_and_exit (t_read r, int first)
 		r.i--;
 	}
 	exit (0);
+}
+
+void	exit_error(char *str)
+{
+	perror(str);
+	exit (errno);
 }

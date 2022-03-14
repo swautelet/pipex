@@ -6,7 +6,7 @@
 /*   By: swautele <swautele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 19:19:49 by swautele          #+#    #+#             */
-/*   Updated: 2022/03/14 19:19:34 by swautele         ###   ########.fr       */
+/*   Updated: 2022/03/14 20:24:32 by swautele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <limits.h>
+# include <errno.h>
 
 typedef struct s_path{
 	int		pl;
@@ -62,5 +63,6 @@ int		prep_command(char *argv, char **envp);
 int		f_strcmp(char *str1, char *str2);
 int		ft_here_doc(int argc, char **argv, char **envp);
 int		write_and_exit(t_read r, int first);
+void	exit_error(char *str);
 
 #endif
