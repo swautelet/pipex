@@ -6,7 +6,7 @@
 /*   By: swautele <swautele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:12:31 by swautele          #+#    #+#             */
-/*   Updated: 2022/03/14 16:22:57 by swautele         ###   ########.fr       */
+/*   Updated: 2022/03/14 18:41:55 by swautele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ void	wr_heredoc(int fd, char *end)
 	while (len != 0)
 	{
 		len = read(0, buffer, 10);
-		write (fd, buffer, len);
 		if (endhere(buffer, end) == 0)
 			break ;
+		write (fd, buffer, len);
 	}
 }
 
@@ -64,9 +64,12 @@ int	ft_here_doc(int argc, char **argv, char **envp)
 	if (argc < 5)
 		return (0);
 	r.i = 2;
-	r.fd[r.i] = open(argv[r.i], O_CLOEXEC | O_RDWR);
+	r.fd[r.i] = open(argv[r.i], O_CREAT | O_RDWR, 00777);
+	close (r.fd[r.i]);
+	r.fd[r.i] = open(argv[r.i], O_CREAT | O_RDWR);
 	wr_heredoc(r.fd[r.i], argv[r.i]);
 	r.out = open(argv[argc - 1], O_CREAT | O_WRONLY | O_APPEND, 00644);
+	printf("fd temp = %d fd out = %d", r.fd[r.i], r.out);
 	if (r.fd[r.i] == -1 || r.out == -1)
 		return (-1);
 	while (r.i < argc - 2)
@@ -76,6 +79,7 @@ int	ft_here_doc(int argc, char **argv, char **envp)
 		r.fd[r.i] = prep_command(argv[r.i], envp);
 	}
 	r.len = read(r.fd[r.i], r.buffer, 999);
+	printf("len = %d", r.len);
 	while (r.len > 0)
 	{
 		write(r.out, r.buffer, r.len);
@@ -87,5 +91,5 @@ int	ft_here_doc(int argc, char **argv, char **envp)
 		close (r.fd[r.i]);
 		r.i--;
 	}
-	return (0);
+	exit (0);
 }
