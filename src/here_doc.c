@@ -6,7 +6,7 @@
 /*   By: swautele <swautele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:12:31 by swautele          #+#    #+#             */
-/*   Updated: 2022/03/14 14:47:18 by swautele         ###   ########.fr       */
+/*   Updated: 2022/03/14 15:23:44 by swautele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,39 +18,57 @@ int	f_strcmp(char *str1, char *str2)
 		return (0);
 	if (str1 == NULL || str2 == NULL)
 		return (-1000);
-	while(*str1 == *str2)
+	while (*str2)
 	{
 		str1++;
 		str2++;
+		if (*str1 != *str2)
+			return ((unsigned char)*str1 - (unsigned char )*str2);
 	}
 	return ((unsigned char)*str1 - (unsigned char )*str2);
 }
 
+int	endhere(char *buffer, char *end)
+{
+	while (*end && *buffer && *buffer == *end)
+	{
+		end++;
+		buffer++;
+	}
+	if (!*end && *buffer == '\n')
+		return (0);
+	else
+		return (1);
+}
+
 void	wr_heredoc(int fd, char *end)
 {
-	char buffer[INT_MAX];
-	int	len;
+	char	buffer[10];
+	int		len;
 
-	len = read (0, buffer, INT_MAX - 1);
-	buffer[len] = '\0';
-	write (fd, buffer, ft_strlen(buffer));
-	while (f_strcmp(buffer, end) != 0)
+	printf("test\n");
+	len = read (0, buffer, 10);
+	write (fd, buffer, len);
+	while (len != 0)
 	{
 		len = read(0, buffer, 10);
-		buffer[len] = '\0';
-		write (fd, buffer, ft_strlen(buffer));
+		write (fd, buffer, len);
+		if (endhere(buffer, end) == 0)
+			break ;
 	}
 }
 
 int	ft_here_doc(int argc, char **argv, char **envp)
 {
-	t_read  r;
+	t_read	r;
 
+	printf("test\n");
 	if (argc < 5)
 		return (0);
 	r.i = 2;
 	// modifier l entree pour prendre here_doc 
 	r.fd[r.i] = open(argv[r.i], O_CLOEXEC | O_RDWR);
+	printf("test\n");
 	wr_heredoc(r.fd[r.i], argv[r.i]);
 	r.out = open(argv[argc - 1], O_CREAT | O_WRONLY | O_APPEND, 00644);
 	if (r.fd[r.i] == -1 || r.out == -1)

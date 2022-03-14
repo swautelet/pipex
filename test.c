@@ -1,4 +1,17 @@
-# include "src/pipex.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   test.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: swautele <swautele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/14 15:08:39 by swautele          #+#    #+#             */
+/*   Updated: 2022/03/14 15:08:54 by swautele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "src/pipex.h"
+
 int	ft_strlen(char *str)
 {
 	int	i;
@@ -10,17 +23,18 @@ int	ft_strlen(char *str)
 		i++;
 	return (i);
 }
-int main ()
+
+int	main(void)
 {
-	char buffer[10];
-	int	len;
+	char	buffer[10];
+	int		len;
 
 	len = read (0, buffer, 10);
+	write (1, buffer, len);
 	while (len > 0)
 	{
 		len = read(0, buffer, 10);
-		buffer[len] = '\0';
-		write (1, buffer, ft_strlen(buffer));
+		write (1, buffer, len);
 	}
 	write(1, buffer, ft_strlen(buffer));
 }
