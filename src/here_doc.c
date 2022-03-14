@@ -6,7 +6,7 @@
 /*   By: swautele <swautele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:12:31 by swautele          #+#    #+#             */
-/*   Updated: 2022/03/14 18:44:33 by swautele         ###   ########.fr       */
+/*   Updated: 2022/03/14 19:08:17 by swautele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ int	ft_here_doc(int argc, char **argv, char **envp)
 	close (r.fd[r.i]);
 	r.fd[r.i] = open(argv[r.i], O_CREAT | O_RDONLY, 00777);
 	r.out = open(argv[argc - 1], O_CREAT | O_WRONLY | O_APPEND, 00644);
-	printf("fd temp = %d fd out = %d\n", r.fd[r.i], r.out);
 	if (r.fd[r.i] == -1 || r.out == -1)
 		return (-1);
 	while (r.i < argc - 2)
@@ -79,7 +78,6 @@ int	ft_here_doc(int argc, char **argv, char **envp)
 		r.fd[r.i] = prep_command(argv[r.i], envp);
 	}
 	r.len = read(r.fd[r.i], r.buffer, 999);
-	printf("len = %d", r.len);
 	while (r.len > 0)
 	{
 		write(r.out, r.buffer, r.len);
