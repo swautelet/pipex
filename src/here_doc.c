@@ -6,7 +6,7 @@
 /*   By: swautele <swautele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:12:31 by swautele          #+#    #+#             */
-/*   Updated: 2022/03/14 18:41:55 by swautele         ###   ########.fr       */
+/*   Updated: 2022/03/14 18:42:44 by swautele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,12 @@ int	ft_here_doc(int argc, char **argv, char **envp)
 	if (argc < 5)
 		return (0);
 	r.i = 2;
-	r.fd[r.i] = open(argv[r.i], O_CREAT | O_RDWR, 00777);
-	close (r.fd[r.i]);
-	r.fd[r.i] = open(argv[r.i], O_CREAT | O_RDWR);
+	r.fd[r.i] = open(argv[r.i], O_CREAT | O_WRONLY, 00777);
 	wr_heredoc(r.fd[r.i], argv[r.i]);
+	close (r.fd[r.i]);
+	r.fd[r.i] = open(argv[r.i], O_CREAT | O_RDONLY, 00777);
 	r.out = open(argv[argc - 1], O_CREAT | O_WRONLY | O_APPEND, 00644);
-	printf("fd temp = %d fd out = %d", r.fd[r.i], r.out);
+	printf("fd temp = %d fd out = %d\n", r.fd[r.i], r.out);
 	if (r.fd[r.i] == -1 || r.out == -1)
 		return (-1);
 	while (r.i < argc - 2)
