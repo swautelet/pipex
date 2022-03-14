@@ -6,7 +6,7 @@
 /*   By: swautele <swautele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 15:08:19 by swautele          #+#    #+#             */
-/*   Updated: 2022/03/14 20:29:27 by swautele         ###   ########.fr       */
+/*   Updated: 2022/03/14 21:01:37 by swautele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,9 @@ char	*find_path(char *str, char *name)
 
 int	command(char *path, char **arg, char **env, int pip[2])
 {
-	(void) pip;
 	close(pip[0]);
+	if (path == NULL)
+		exit_error("command not found");
 	if (dup2(pip[1], 1) == -1)
 		exit_error("failed to dup2");
 	return (execve(path, arg, env));
@@ -73,7 +74,7 @@ int	prep_command(char *argv, char **envp)
 	p.pl = find_path_line(envp);
 	p.path = find_path(&envp[p.pl][5], p.arg[0]);
 	if (p.path == NULL)
-		exit (127);
+		perror("command not found");
 	if (pipe(p.pip) == -1)
 		exit_error("failed to pipe");
 	p.id = fork();
