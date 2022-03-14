@@ -6,7 +6,7 @@
 /*   By: swautele <swautele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 21:17:12 by swautele          #+#    #+#             */
-/*   Updated: 2022/03/11 18:32:05 by swautele         ###   ########.fr       */
+/*   Updated: 2022/03/11 19:36:40 by swautele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_read	r;
 
-	if (strcmp(argv[1], "here_doc") == 0)
+	if (f_strcmp(argv[1], "here_doc") == 0)
 		ft_here_doc(argc, argv, envp);
 	if (argc < 4)
 		return (0);

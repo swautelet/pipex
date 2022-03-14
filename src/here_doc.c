@@ -6,7 +6,7 @@
 /*   By: swautele <swautele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:12:31 by swautele          #+#    #+#             */
-/*   Updated: 2022/03/11 19:35:51 by swautele         ###   ########.fr       */
+/*   Updated: 2022/03/14 14:47:18 by swautele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,15 @@ void	wr_heredoc(int fd, char *end)
 	}
 }
 
-void	ft_here_doc(int argc, char **argv, char **envp)
-[
-	t_read	r;
+int	ft_here_doc(int argc, char **argv, char **envp)
+{
+	t_read  r;
 
 	if (argc < 5)
 		return (0);
 	r.i = 2;
 	// modifier l entree pour prendre here_doc 
-	r.fd[r.i] = open(argv[r.i], O_TMPFILE | O_RDWR);
+	r.fd[r.i] = open(argv[r.i], O_CLOEXEC | O_RDWR);
 	wr_heredoc(r.fd[r.i], argv[r.i]);
 	r.out = open(argv[argc - 1], O_CREAT | O_WRONLY | O_APPEND, 00644);
 	if (r.fd[r.i] == -1 || r.out == -1)
@@ -73,4 +73,5 @@ void	ft_here_doc(int argc, char **argv, char **envp)
 		close (r.fd[r.i]);
 		r.i--;
 	}
-]
+	return (0);
+}

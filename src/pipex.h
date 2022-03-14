@@ -6,7 +6,7 @@
 /*   By: swautele <swautele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 19:19:49 by swautele          #+#    #+#             */
-/*   Updated: 2022/03/11 19:36:05 by swautele         ###   ########.fr       */
+/*   Updated: 2022/03/14 14:42:56 by swautele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_fuck{
 	int		j;
 	int		k;
 }	t_explore;
+
 typedef struct s_exit{
 	int	fd;
 	int	excod;
@@ -59,6 +60,6 @@ void	free_table(char **str);
 char	*find_path(char *str, char *name);
 int		prep_command(char *argv, char **envp);
 int		f_strcmp(char *str1, char *str2);
-void	ft_here_doc(int argc, char **argv, char **envp);
+int		ft_here_doc(int argc, char **argv, char **envp);
 
 #endif
