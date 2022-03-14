@@ -6,7 +6,7 @@
 /*   By: swautele <swautele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 19:19:49 by swautele          #+#    #+#             */
-/*   Updated: 2022/03/14 16:22:22 by swautele         ###   ########.fr       */
+/*   Updated: 2022/03/14 19:19:34 by swautele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,6 @@ char	*find_path(char *str, char *name);
 int		prep_command(char *argv, char **envp);
 int		f_strcmp(char *str1, char *str2);
 int		ft_here_doc(int argc, char **argv, char **envp);
+int		write_and_exit(t_read r, int first);
 
 #endif
