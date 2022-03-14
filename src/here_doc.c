@@ -6,7 +6,7 @@
 /*   By: swautele <swautele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:12:31 by swautele          #+#    #+#             */
-/*   Updated: 2022/03/14 15:26:17 by swautele         ###   ########.fr       */
+/*   Updated: 2022/03/14 16:15:13 by swautele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	ft_here_doc(int argc, char **argv, char **envp)
 		dup2(r.fd[r.i - 1], 0);
 		r.fd[r.i] = prep_command(argv[r.i], envp);
 	}
-	r.len = read(r.fd[r.i], r.buffer, 999);
+	r.len = read(r.fd[r.i], r.buffer, INT_MAX);
 	while (r.len > 0)
 	{
 		write(r.out, r.buffer, r.len);

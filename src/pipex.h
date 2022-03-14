@@ -6,7 +6,7 @@
 /*   By: swautele <swautele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 19:19:49 by swautele          #+#    #+#             */
-/*   Updated: 2022/03/14 14:42:56 by swautele         ###   ########.fr       */
+/*   Updated: 2022/03/14 16:14:35 by swautele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_path{
 typedef struct s_read{
 	int		i;
 	int		fd[FOPEN_MAX];
-	char	buffer[1000];
+	char	buffer[INT_MAX];
 	int		out;
 	int		len;
 }	t_read;
