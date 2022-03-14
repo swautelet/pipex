@@ -6,7 +6,7 @@
 /*   By: swautele <swautele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 21:17:12 by swautele          #+#    #+#             */
-/*   Updated: 2022/03/14 16:14:47 by swautele         ###   ########.fr       */
+/*   Updated: 2022/03/14 16:21:56 by swautele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	main(int argc, char **argv, char **envp)
 		dup2(r.fd[r.i - 1], 0);
 		r.fd[r.i] = prep_command(argv[r.i], envp);
 	}
-	r.len = read(r.fd[r.i], r.buffer, INT_MAX);
+	r.len = read(r.fd[r.i], r.buffer, 999);
 	while (r.len > 0)
 	{
 		write(r.out, r.buffer, r.len);
