@@ -6,7 +6,7 @@
 /*   By: swautele <swautele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 18:12:31 by swautele          #+#    #+#             */
-/*   Updated: 2022/03/15 15:16:04 by swautele         ###   ########.fr       */
+/*   Updated: 2022/03/15 19:38:02 by swautele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ void	wr_heredoc(int fd, char *end)
 	char	buffer[10];
 	int		len;
 
-	len = read (0, buffer, 10);
-	write (fd, buffer, len);
+	len = 1;
 	while (len != 0)
 	{
 		len = read(0, buffer, 10);

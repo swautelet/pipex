@@ -6,7 +6,7 @@
 /*   By: swautele <swautele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 15:08:19 by swautele          #+#    #+#             */
-/*   Updated: 2022/03/15 13:47:40 by swautele         ###   ########.fr       */
+/*   Updated: 2022/03/15 19:42:06 by swautele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,14 @@ char	*find_path(char *str, char *name)
 	t_explore	e;
 
 	e.possible = ft_split(str, ':');
+	if (e.possible == NULL)
+		exit (1);
 	e.i = -1;
 	while (e.possible[++e.i])
 	{
 		e.temp = ft_calloc(ft_strlen(e.possible[e.i]) + ft_strlen(name) + 2, 1);
+		if (e.temp == NULL)
+			exit (1);
 		e.j = -1;
 		while (e.possible[e.i][++e.j])
 			e.temp[e.j] = e.possible[e.i][e.j];
@@ -49,8 +53,7 @@ char	*find_path(char *str, char *name)
 			free_table(e.possible);
 			return (e.temp);
 		}
-		else
-			free (e.temp);
+		free (e.temp);
 	}
 	free_table(e.possible);
 	return (NULL);
@@ -71,6 +74,8 @@ int	prep_command(char *argv, char **envp)
 	t_path	p;
 
 	p.arg = ft_split(argv, ' ');
+	if (p.arg == NULL)
+		exit (1);
 	p.pl = find_path_line(envp);
 	p.path = find_path(&envp[p.pl][5], p.arg[0]);
 	if (p.path == NULL)
