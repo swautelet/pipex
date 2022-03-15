@@ -6,7 +6,7 @@
 /*   By: swautele <swautele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 15:08:19 by swautele          #+#    #+#             */
-/*   Updated: 2022/03/14 21:01:37 by swautele         ###   ########.fr       */
+/*   Updated: 2022/03/15 13:47:40 by swautele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,6 @@ int	prep_command(char *argv, char **envp)
 		exit_error("failed to fork");
 	if (p.id == 0)
 		command(p.path, p.arg, envp, p.pip);
-	else
-		wait(&p.w);
 	close(p.pip[1]);
 	free(p.path);
 	free_table(p.arg);
