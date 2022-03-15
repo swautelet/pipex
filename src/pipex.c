@@ -6,7 +6,7 @@
 /*   By: swautele <swautele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 21:17:12 by swautele          #+#    #+#             */
-/*   Updated: 2022/03/15 14:37:44 by swautele         ###   ########.fr       */
+/*   Updated: 2022/03/15 14:38:40 by swautele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int	write_and_exit(t_read r, int first)
 		write(r.out, r.buffer, r.len);
 		r.len = read(r.fd[r.i], r.buffer, 999);
 	}
-	// printf("first = %d r.i = %d", first, r.i);
 	close(r.out);
 	waitpid(-1, &r.len, 0);
 	while (r.i >= first)
